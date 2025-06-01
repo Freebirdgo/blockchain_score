@@ -1,5 +1,7 @@
-This is a new feature to the blockchain
+This project aims to add a new feature to blockchain
 
-## ChangeLog
+## log
 
-- add a scoring mechanism to PBFT
+- create the modified pbft algorithm:
+  - select best block score
+- compare pbft and the algorithm
