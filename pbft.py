@@ -5,16 +5,29 @@ import matplotlib.pyplot as plt
 def generate_block(nums: int) -> list[int]:
     return [random.randint(1, 10) for _ in range(nums)]
 
+def median(input: list[int]) -> int:
+    input = sorted(input)
+    n = len(input)
+
+    if n % 2 == 1:
+        return input[n // 2]
+    return input[n // 2 - 1]
 
 def pbft(faults: int, blocks: list[int], n: int) -> int:
     if random.random() < faults / n:
         return min(blocks)
     
-    return random.choice(blocks)
+    return blocks[0]
 
 def scoring(faults: int, blocks: list[int], n: int) -> int:
     if random.random() < faults / n:
         return min(blocks)
+    
+    return max(blocks)
+
+def scoring_fault_dealer(faults: int, blocks: list[int], n: int) -> int:
+    if random.random() < faults / n:
+        return median(blocks)
     
     return max(blocks)
 
@@ -26,7 +39,7 @@ def run(trials: int, faults: int):
     for _ in range(trials):
         blocks = generate_block(n)
         pbft_results.append(pbft(faults, blocks, n))
-        score_results.append(scoring(faults, blocks, n))
+        score_results.append(scoring_fault_dealer(faults, blocks, n))
     
 
     return pbft_results, score_results
